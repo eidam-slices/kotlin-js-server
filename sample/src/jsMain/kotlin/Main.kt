@@ -15,7 +15,6 @@ fun main() {
 
         routing {
             get("/hello-world") {
-                error("Zmrde")
                 call.respondText("Hello world from Kotlin/JS Node.js server!")
             }
         }
