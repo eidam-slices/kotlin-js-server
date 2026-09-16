@@ -16,7 +16,6 @@ plugins {
 include(":core")
 include(":node")
 include(":sample")
-include(":temp")
 
 rootProject.name = "kotlin-js-server"
 
