@@ -1,3 +1,5 @@
+@file:Suppress("Unused")
+
 package cz.eidam.kotlinjs.server.http
 
 /* region Factory Functions */
