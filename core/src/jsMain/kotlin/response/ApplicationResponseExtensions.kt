@@ -1,9 +1,9 @@
 package cz.eidam.kotlinjs.server.response
 
+import cz.eidam.kotlinjs.server.http.ContentType
+import cz.eidam.kotlinjs.server.http.HttpHeaders
+import cz.eidam.kotlinjs.server.http.HttpStatusCode
 import cz.eidam.kotlinjs.server.http.content.OutgoingContent
-import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
-import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.flow.Flow
 
 // region RESPONSE EXTENSION FUNCTIONS
@@ -28,7 +28,7 @@ fun ApplicationResponse.bytes(
     val content = OutgoingContent.Bytes(bytes)
     status?.let { this.status(it) }
     headers {
-        set(HttpHeaders.ContentType, contentType.toString())
+        set(HttpHeaders.ContentType, contentType.value)
     }
     this.body(content)
 }

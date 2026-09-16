@@ -1,7 +1,7 @@
 package cz.eidam.kotlinjs.server.routing
 
 import cz.eidam.kotlinjs.server.request.ApplicationRequest
-import io.ktor.http.Parameters
+import cz.eidam.kotlinjs.server.http.Parameters
 
 class RoutingRequest(
     private val request: ApplicationRequest,

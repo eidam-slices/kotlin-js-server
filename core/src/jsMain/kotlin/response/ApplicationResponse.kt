@@ -1,9 +1,9 @@
 package cz.eidam.kotlinjs.server.response
 
+import cz.eidam.kotlinjs.server.http.Headers
+import cz.eidam.kotlinjs.server.http.HttpStatusCode
+import cz.eidam.kotlinjs.server.http.MutableHeaders
 import cz.eidam.kotlinjs.server.http.content.OutgoingContent
-import io.ktor.http.Headers
-import io.ktor.http.HeadersBuilder
-import io.ktor.http.HttpStatusCode
 
 /*
  UNIDIRECTIONAL FLOW
@@ -25,7 +25,7 @@ interface ApplicationResponse {
     fun status(value: HttpStatusCode)
 
     val headers: Headers
-    fun headers(build: HeadersBuilder.() -> Unit)
+    fun headers(build: MutableHeaders.() -> Unit)
 
     // TODO: cookies
     fun body(value: OutgoingContent)

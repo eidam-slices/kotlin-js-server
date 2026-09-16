@@ -1,7 +1,7 @@
 package cz.eidam.kotlinjs.server.routing
 
-import io.ktor.http.Parameters
-import io.ktor.http.plus
+import cz.eidam.kotlinjs.server.http.Parameters
+import cz.eidam.kotlinjs.server.http.plus
 
 data class RoutingParameters(
     val query: Parameters,

@@ -1,8 +1,8 @@
 package cz.eidam.kotlinjs.server.routing
 
 import cz.eidam.kotlinjs.server.application.ApplicationCall
+import cz.eidam.kotlinjs.server.http.Parameters
 import cz.eidam.kotlinjs.server.response.ApplicationResponse
-import io.ktor.http.Parameters
 
 class RoutingCall(
     val call: ApplicationCall,

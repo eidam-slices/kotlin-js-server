@@ -1,8 +1,8 @@
 package cz.eidam.kotlinjs.server.routing
 
+import cz.eidam.kotlinjs.server.http.HttpMethod
 import cz.eidam.kotlinjs.server.routing.selectors.HttpMethodRouteSelector
 import cz.eidam.kotlinjs.server.routing.selectors.RouteSelector
-import io.ktor.http.HttpMethod
 
 fun Route.route(path: String, build: Route.() -> Unit): Route {
     val segments = path.trim('/').split('/').filter { it.isNotEmpty() }

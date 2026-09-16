@@ -3,8 +3,8 @@
 package cz.eidam.kotlinjs.server.response
 
 import cz.eidam.kotlinjs.server.application.ApplicationCall
-import io.ktor.http.ContentType
-import io.ktor.http.HttpStatusCode
+import cz.eidam.kotlinjs.server.http.ContentType
+import cz.eidam.kotlinjs.server.http.HttpStatusCode
 import kotlinx.coroutines.flow.Flow
 
 inline fun ApplicationCall.respondText(

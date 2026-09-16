@@ -1,12 +1,12 @@
 package cz.eidam.kotlinjs.server.application
 
+import cz.eidam.kotlinjs.server.http.HttpStatusCode
 import cz.eidam.kotlinjs.server.response.ApplicationResponse
 import cz.eidam.kotlinjs.server.response.CommitableResponse
 import cz.eidam.kotlinjs.server.routing.RouteResolveResult
 import cz.eidam.kotlinjs.server.routing.RoutingCall
 import cz.eidam.kotlinjs.server.routing.RoutingContext
 import cz.eidam.kotlinjs.server.routing.RoutingRoot
-import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

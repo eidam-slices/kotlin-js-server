@@ -1,8 +1,8 @@
 package cz.eidam.kotlinjs.server.routing.selectors
 
+import cz.eidam.kotlinjs.server.http.HttpStatusCode
+import cz.eidam.kotlinjs.server.http.Parameters
 import cz.eidam.kotlinjs.server.routing.RouteResolver
-import io.ktor.http.HttpStatusCode
-import io.ktor.http.Parameters
 
 abstract class RouteSelector {
     abstract fun evaluate(context: RouteResolver, segmentIndex: Int): RouteSelectorEvaluation

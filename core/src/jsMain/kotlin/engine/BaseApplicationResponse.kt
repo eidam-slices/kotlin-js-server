@@ -1,10 +1,11 @@
 package cz.eidam.kotlinjs.server.engine
 
+import cz.eidam.kotlinjs.server.http.Headers
+import cz.eidam.kotlinjs.server.http.HttpStatusCode
+import cz.eidam.kotlinjs.server.http.MapMutableHeaders
+import cz.eidam.kotlinjs.server.http.MutableHeaders
 import cz.eidam.kotlinjs.server.http.content.OutgoingContent
 import cz.eidam.kotlinjs.server.response.CommitableResponse
-import io.ktor.http.Headers
-import io.ktor.http.HeadersBuilder
-import io.ktor.http.HttpStatusCode
 
 abstract class BaseApplicationResponse: CommitableResponse {
 
@@ -17,7 +18,7 @@ abstract class BaseApplicationResponse: CommitableResponse {
     final override var status: HttpStatusCode? = null
         private set
 
-    private val _headers: HeadersBuilder = HeadersBuilder()
+    private val _headers: MapMutableHeaders = MapMutableHeaders()
     final override val headers: Headers get() = _headers.build()
 
     private var body: OutgoingContent? = null
@@ -28,7 +29,7 @@ abstract class BaseApplicationResponse: CommitableResponse {
     final override var sent: Boolean = false
         protected set
 
-    final override fun headers(build: HeadersBuilder.() -> Unit) {
+    final override fun headers(build: MutableHeaders.() -> Unit) {
         check(!committed) { ALREADY_COMMITTED }
         _headers.apply(build)
     }
@@ -58,7 +59,7 @@ abstract class BaseApplicationResponse: CommitableResponse {
     }
 
     companion object {
-        val DEFAULT_STATUS = HttpStatusCode.OK
+        val DEFAULT_STATUS = HttpStatusCode.Ok
     }
 
 }

@@ -1,10 +1,10 @@
 package cz.eidam.kotlinjs.server.routing
 
 import cz.eidam.kotlinjs.server.application.ApplicationCall
+import cz.eidam.kotlinjs.server.http.HttpStatusCode
+import cz.eidam.kotlinjs.server.http.Parameters
+import cz.eidam.kotlinjs.server.http.plus
 import cz.eidam.kotlinjs.server.routing.selectors.RouteSelectorEvaluation
-import io.ktor.http.HttpStatusCode
-import io.ktor.http.Parameters
-import io.ktor.http.plus
 
 class RouteResolver(
     val call: ApplicationCall

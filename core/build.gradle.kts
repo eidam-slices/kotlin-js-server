@@ -11,7 +11,6 @@ kotlin {
     sourceSets {
         jsMain.dependencies {
             api(libs.kotlinx.coroutines.core)
-            api(libs.ktor.http)
         }
     }
 }

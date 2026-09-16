@@ -1,9 +1,9 @@
 package cz.eidam.kotlinjs.server.node
 
 import cz.eidam.kotlinjs.server.engine.BaseApplicationRequest
-import io.ktor.http.Headers
-import io.ktor.http.HttpMethod
-import io.ktor.http.Parameters
+import cz.eidam.kotlinjs.server.http.Headers
+import cz.eidam.kotlinjs.server.http.HttpMethod
+import cz.eidam.kotlinjs.server.http.Parameters
 import js.buffer.ArrayBuffer
 import js.typedarrays.Int8Array
 import js.typedarrays.asByteArray
@@ -23,14 +23,19 @@ class NodeApplicationRequest(
 
 
     override val method: HttpMethod
-        get() = HttpMethod.parse(request.method ?: error("Request method is null. TODO: handle."))
+        get() = HttpMethod(request.method ?: error("Request method is null. TODO: handle."))
 
     override val query: Parameters by lazy(LazyThreadSafetyMode.NONE) {
-        val params = request.url?.let { URLSearchParams(it) } ?: error("Request url is null. TODO: handle.")
-        NodeParameters(params)
+        val url = request.url ?: error("Request url is null. TODO: handle.")
+        val query = url
+            .substringAfter('?', "")
+            .substringBefore('#')
+        val parameters = URLSearchParams(query)
+        NodeParameters(parameters)
     }
     override val headers: Headers by lazy(LazyThreadSafetyMode.NONE) {
-        NodeHeaders(request.headersDistinct)
+        val headers = request.headersDistinct
+        NodeHeaders(headers)
     }
     override val uri: String
         get() = request.url ?: error("Request url is null. TODO: handle.")

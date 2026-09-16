@@ -1,8 +1,8 @@
 package cz.eidam.kotlinjs.server.routing.selectors
 
+import cz.eidam.kotlinjs.server.http.HttpMethod
+import cz.eidam.kotlinjs.server.http.HttpStatusCode
 import cz.eidam.kotlinjs.server.routing.RouteResolver
-import io.ktor.http.HttpMethod
-import io.ktor.http.HttpStatusCode
 
 data class HttpMethodRouteSelector(val method: HttpMethod): RouteSelector() {
     override fun evaluate(context: RouteResolver, segmentIndex: Int): RouteSelectorEvaluation {

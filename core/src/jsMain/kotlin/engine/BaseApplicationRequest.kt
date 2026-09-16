@@ -1,9 +1,9 @@
 package cz.eidam.kotlinjs.server.engine
 
+import cz.eidam.kotlinjs.server.http.Headers
+import cz.eidam.kotlinjs.server.http.HttpMethod
+import cz.eidam.kotlinjs.server.http.Parameters
 import cz.eidam.kotlinjs.server.request.ApplicationRequest
-import io.ktor.http.Headers
-import io.ktor.http.HttpMethod
-import io.ktor.http.Parameters
 import kotlinx.coroutines.flow.Flow
 
 abstract class BaseApplicationRequest: ApplicationRequest {

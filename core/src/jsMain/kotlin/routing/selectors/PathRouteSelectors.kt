@@ -1,8 +1,8 @@
 package cz.eidam.kotlinjs.server.routing.selectors
 
+import cz.eidam.kotlinjs.server.http.HttpStatusCode
+import cz.eidam.kotlinjs.server.http.parametersOf
 import cz.eidam.kotlinjs.server.routing.RouteResolver
-import io.ktor.http.HttpStatusCode
-import io.ktor.http.parametersOf
 
 data class PathSegmentConstantRouteSelector(val value: String): RouteSelector() {
     override fun evaluate(context: RouteResolver, segmentIndex: Int): RouteSelectorEvaluation {

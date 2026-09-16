@@ -1,9 +1,9 @@
 package cz.eidam.kotlinjs.server.node
 
 import cz.eidam.kotlinjs.server.engine.BaseApplicationResponse
+import cz.eidam.kotlinjs.server.http.Headers
+import cz.eidam.kotlinjs.server.http.HttpStatusCode
 import cz.eidam.kotlinjs.server.http.content.OutgoingContent
-import io.ktor.http.Headers
-import io.ktor.http.HttpStatusCode
 import js.typedarrays.toUint8Array
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -21,7 +21,7 @@ class NodeApplicationResponse(
 
         response.statusCode = status.value.toDouble()
 
-        headers.forEach { name, values ->
+        for ((name, values) in headers) {
             response.appendHeader(name, values.toTypedArray())
         }
 

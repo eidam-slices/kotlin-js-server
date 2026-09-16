@@ -1,41 +1,96 @@
+@file:OptIn(ExperimentalWasmJsInterop::class)
+
 package cz.eidam.kotlinjs.server.node
 
-import io.ktor.http.Parameters
+import cz.eidam.kotlinjs.server.http.Parameters
+import cz.eidam.kotlinjs.server.http.collections.Multimap
 import js.array.component1
 import js.array.component2
-import js.iterable.toList
-import js.iterable.toSet
+import js.iterable.iterator
 import web.url.URLSearchParams
 
 class NodeParameters(
     private val parameters: URLSearchParams
 ): Parameters {
 
-    override val caseInsensitiveName: Boolean
-        get() = false
+    private var cached: Map<String, List<String>>? = null
 
-    override fun get(name: String): String? {
-        @OptIn(ExperimentalWasmJsInterop::class)
-        return parameters.get(name)
+    override val entries: Set<Multimap.Entry> = object: AbstractSet<Multimap.Entry>() {
+        override val size: Int
+            get() = this@NodeParameters.size
+
+        override fun iterator(): Iterator<Multimap.Entry> {
+            val iterator = cache().iterator()
+
+            return object: Iterator<Multimap.Entry> {
+                override fun next(): Multimap.Entry {
+                    val (key, values) = iterator.next()
+                    return Multimap.Entry(key, values)
+                }
+
+                override fun hasNext(): Boolean {
+                    return iterator.hasNext()
+                }
+            }
+        }
     }
 
-    override fun getAll(name: String): List<String>? {
-        return parameters.getAll(name).asList().takeIf { it.isNotEmpty() }
+    override val names: Set<String> = object: AbstractSet<String>() {
+        override val size: Int
+            get() = this@NodeParameters.size
+
+        override fun iterator(): Iterator<String> {
+            return cache().keys.iterator()
+        }
+
+        override fun contains(element: String): Boolean {
+            return this@NodeParameters.contains(element)
+        }
+    }
+    override val size: Int
+        get() = cache().size
+
+    override fun getOne(name: String): String? {
+        val cached = cached
+
+        return if (cached != null) {
+            cached[name]?.firstOrNull()
+        } else {
+            parameters.get(name)
+        }
     }
 
-    override fun names(): Set<String> {
-        return parameters.keys().toSet()
+    override fun getMulti(name: String): List<String>? {
+        val cached = cached
+        return if (cached != null) {
+            cached[name]
+        } else {
+            parameters.getAll(name)
+                .takeIf { it.isNotEmpty() }
+                ?.asList()
+        }
     }
 
-    override fun entries(): Set<Map.Entry<String, List<String>>> {
-        return parameters.entries()
-            .toList()
-            .groupBy({ it.component1() }, { it.component2() })
-            .entries
+    override fun contains(name: String): Boolean {
+        val cached = cached
+
+        return if (cached != null) {
+            cached.contains(name)
+        } else {
+            parameters.has(name)
+        }
     }
 
-    override fun isEmpty(): Boolean {
-        return parameters.size <= 0
-    }
+    private fun cache(): Map<String, List<String>> {
+        cached?.let { return it }
 
+        val result: Map<String, List<String>> = buildMap<String, MutableList<String>> {
+            for ((key, value) in parameters.entries()) {
+                val existing = getOrPut(key) { mutableListOf() }
+                existing.add(value)
+            }
+        }
+        cached = result
+        return result
+    }
 }
