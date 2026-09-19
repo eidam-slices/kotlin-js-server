@@ -24,8 +24,7 @@ interface ApplicationResponse {
     val status: HttpStatusCode?
     fun status(value: HttpStatusCode)
 
-    val headers: Headers
-    fun headers(build: MutableHeaders.() -> Unit)
+    val headers: ResponseHeaders
 
     // TODO: cookies
     fun body(value: OutgoingContent)
